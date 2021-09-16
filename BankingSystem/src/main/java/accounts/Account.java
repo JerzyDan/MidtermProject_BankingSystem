@@ -7,19 +7,19 @@ public class Account {
     private BigDecimal balance;
     private String primaryOwner;
     private String secondaryOwner;
-    private BigDecimal penaltyFee;
+    private static final BigDecimal penaltyFee = new BigDecimal("40");
 
-    public Account(BigDecimal balance, String primaryOwner, BigDecimal penaltyFee) {
+    public Account(BigDecimal balance, String primaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
-        this.penaltyFee = penaltyFee;
+        //this.penaltyFee = penaltyFee;
     }
 
-    public Account(BigDecimal balance, String primaryOwner, String secondaryOwner, BigDecimal penaltyFee) {
+    public Account(BigDecimal balance, String primaryOwner, String secondaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
-        this.penaltyFee = penaltyFee;
+        //this.penaltyFee = penaltyFee;
     }
 
     public BigDecimal getBalance() {
@@ -50,7 +50,7 @@ public class Account {
         return penaltyFee;
     }
 
-    public void setPenaltyFee(BigDecimal penaltyFee) {
+/*    public void setPenaltyFee(BigDecimal penaltyFee) {
         this.penaltyFee = penaltyFee;
-    }
+    }*/
 }
