@@ -32,7 +32,7 @@ public class Savings extends Account{
     private BigDecimal interestRate;
     private LocalDate interestDate;
 
-    public Savings(BigDecimal balance, String primaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
+    public Savings(Money balance, String primaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
         super(balance, primaryOwner);
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;
@@ -42,7 +42,7 @@ public class Savings extends Account{
         this.interestDate = creationDate;
     }
 
-    public Savings(BigDecimal balance, String primaryOwner, String secondaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
+    public Savings(Money balance, String primaryOwner, String secondaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;
@@ -117,19 +117,19 @@ public class Savings extends Account{
     }
 
     private void deductFromAccount(Savings account){
-        if (account.getBalance().compareTo(account.getMinimumBalance())<0)
-            account.setBalance(account.getBalance().subtract(account.getPenaltyFee()));
+        if (account.getBalance().getAmount().compareTo(account.getMinimumBalance())<0)
+            account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()),account.getBalance().getCurrency()));
     }
 
-    public BigDecimal getBalance(){
+    public Money getBalance(){
         BigDecimal newBalance;
         LocalDate now = LocalDate.now();
         int diff = Math.abs(Days.daysBetween(now,interestDate).getDays());
         if (diff<365)
             return this.getBalance();
         else
-            newBalance = getBalance().add(getBalance().multiply(getInterestRate()));
-            setBalance(newBalance);
+            newBalance = getBalance().getAmount().add(getBalance().getAmount().multiply(getInterestRate()));
+            setBalance(new Money(newBalance,getBalance().getCurrency()));
             interestDate = LocalDate.now();
             return this.getBalance();
 

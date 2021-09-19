@@ -20,7 +20,10 @@ public class AccountHolder {
 
     private String name;
     private String dateOfBirth;
+
+    @Embedded
     private Address address;
+
     private String mailingAddress;
 
     public AccountHolder(String name, String dateOfBirth, Address address, String mailingAddress) {

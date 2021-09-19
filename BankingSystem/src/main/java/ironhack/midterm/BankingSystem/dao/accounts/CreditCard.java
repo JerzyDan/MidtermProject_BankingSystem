@@ -29,14 +29,14 @@ public class CreditCard extends Account{
     private BigDecimal interestRate;
     private LocalDate interestDate;
 
-    public CreditCard(BigDecimal balance, String primaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
+    public CreditCard(Money balance, String primaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(balance, primaryOwner);
         this.creditLimit = creditLimit;
         this.interestRate = interestRate;
         this.interestDate = LocalDate.now();
     }
 
-    public CreditCard(BigDecimal balance, String primaryOwner, String secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
+    public CreditCard(Money balance, String primaryOwner, String secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(balance, primaryOwner, secondaryOwner);
         this.creditLimit = creditLimit;
         this.interestRate = interestRate;
@@ -65,7 +65,7 @@ public class CreditCard extends Account{
             this.interestRate = new BigDecimal("0.2");
     }
 
-    public BigDecimal getBalance(){
+    public Money getBalance(){
         BigDecimal newBalance;
         LocalDate now = LocalDate.now();
         MathContext mc = new MathContext(2);
@@ -74,8 +74,8 @@ public class CreditCard extends Account{
         if (diff<31)
             return this.getBalance();
         else
-            newBalance = getBalance().add(getBalance().multiply(getInterestRate().divide(divisor, mc)));
-        setBalance(newBalance);
+            newBalance = getBalance().getAmount().add(getBalance().getAmount().multiply(getInterestRate().divide(divisor, mc)));
+        setBalance(new Money(newBalance,getBalance().getCurrency()));
         interestDate = LocalDate.now();
         return this.getBalance();
     }

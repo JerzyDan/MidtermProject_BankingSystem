@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
@@ -20,29 +17,31 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private BigDecimal balance;
+    @Embedded
+    private Money balance;
+    //private BigDecimal balance;
     private String primaryOwner;
     private String secondaryOwner;
     private static final BigDecimal penaltyFee = new BigDecimal("40");
 
-    public Account(BigDecimal balance, String primaryOwner) {
+    public Account(Money balance, String primaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         //this.penaltyFee = penaltyFee;
     }
 
-    public Account(BigDecimal balance, String primaryOwner, String secondaryOwner) {
+    public Account(Money balance, String primaryOwner, String secondaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
         //this.penaltyFee = penaltyFee;
     }
 
-    public BigDecimal getBalance() {
+    public Money getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(Money balance) {
         this.balance = balance;
     }
 

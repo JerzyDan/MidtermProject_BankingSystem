@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 public class Checking extends Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //TODO Should I use Id, if I extends Account class which have Id
     private Integer id;
 
     private String secretKey;
@@ -31,7 +31,7 @@ public class Checking extends Account {
     private AccountStatus status;
 
 
-    public Checking(BigDecimal balance, String primaryOwner, String secretKey, AccountStatus status) {
+    public Checking(Money balance, String primaryOwner, String secretKey, AccountStatus status) {
 
         super(balance, primaryOwner);
         this.secretKey = secretKey;
@@ -41,7 +41,7 @@ public class Checking extends Account {
         this.status = status;
     }
 
-    public Checking(BigDecimal balance, String primaryOwner, String secondaryOwner, String secretKey, AccountStatus status) {
+    public Checking(Money balance, String primaryOwner, String secondaryOwner, String secretKey, AccountStatus status) {
 
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
@@ -92,7 +92,7 @@ public class Checking extends Account {
     }
 
     private void deductFromAccount(Checking account){
-        if (account.getBalance().compareTo(account.getMinimumBalance())<0)
-            account.setBalance(account.getBalance().subtract(account.getPenaltyFee()));
+        if (account.getBalance().getAmount().compareTo(account.getMinimumBalance())<0)
+            account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()),account.getBalance().getCurrency()));
     }
 }

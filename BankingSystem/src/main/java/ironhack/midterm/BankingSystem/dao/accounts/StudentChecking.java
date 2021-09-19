@@ -27,14 +27,14 @@ public class StudentChecking extends Account{
     private String creationDate;
     private AccountStatus status;
 
-    public StudentChecking(BigDecimal balance, String primaryOwner, String secretKey, String creationDate, AccountStatus status) {
+    public StudentChecking(Money balance, String primaryOwner, String secretKey, String creationDate, AccountStatus status) {
         super(balance, primaryOwner);
         this.secretKey = secretKey;
         this.creationDate = creationDate;
         this.status = status;
     }
 
-    public StudentChecking(BigDecimal balance, String primaryOwner, String secondaryOwner, String secretKey, String creationDate, AccountStatus status) {
+    public StudentChecking(Money balance, String primaryOwner, String secondaryOwner, String secretKey, String creationDate, AccountStatus status) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.creationDate = creationDate;
