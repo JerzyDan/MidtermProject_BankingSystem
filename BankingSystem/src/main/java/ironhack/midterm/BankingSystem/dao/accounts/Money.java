@@ -1,8 +1,11 @@
 package ironhack.midterm.BankingSystem.dao.accounts;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 
+@NoArgsConstructor
 @Embeddable
 public class Money {
 

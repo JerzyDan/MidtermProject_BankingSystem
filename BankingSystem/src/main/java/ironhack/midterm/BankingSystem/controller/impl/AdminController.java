@@ -11,6 +11,9 @@ import ironhack.midterm.BankingSystem.repository.accountsRepository.SavingsRepos
 import ironhack.midterm.BankingSystem.repository.accountsRepository.StudentCheckingRepository;
 import ironhack.midterm.BankingSystem.repository.usersRepository.AdminRepository;
 import ironhack.midterm.BankingSystem.service.interfaces.ICheckingService;
+import ironhack.midterm.BankingSystem.service.interfaces.ICreditCardService;
+import ironhack.midterm.BankingSystem.service.interfaces.ISavingService;
+import ironhack.midterm.BankingSystem.service.interfaces.IStudentCheckingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +35,18 @@ public class AdminController implements IAdminController {
 
     @Autowired
     private SavingsRepository savingsRepository;
+    @Autowired
+    private ISavingService iSavingService;
 
     @Autowired
     private CreditCardRepository creditCardRepository;
+    @Autowired
+    private ICreditCardService iCreditCardService;
 
     @Autowired
     private StudentCheckingRepository studentCheckingRepository;
+    @Autowired
+    private IStudentCheckingService iStudentCheckingService;
 
     //creating accounts
     @PostMapping("/checking")
@@ -65,7 +74,7 @@ public class AdminController implements IAdminController {
         return optionalChecking.isPresent() ? optionalChecking.get() : null;
     }
 
-    @GetMapping("savings/{id}")
+    @GetMapping("/savings/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Savings getSavingById(@PathVariable(name = "id") Integer savingId){
         Optional<Savings> optionalSavings = savingsRepository.findById(savingId);
@@ -85,10 +94,27 @@ public class AdminController implements IAdminController {
         return optionalStudentChecking.orElse(null);
     }
 
-    //TODO update account balance
     @PatchMapping("/checking/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCheckingBalance(@PathVariable(name = "id") Integer checkingId, @RequestBody @Valid BigDecimal newBalance){
         iCheckingService.updateCheckingBalance(checkingId,newBalance);
+    }
+
+    @PatchMapping("/savings/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateSavingBalance(@PathVariable(name = "id") Integer savingId, @RequestBody @Valid BigDecimal newBalance){
+        iSavingService.updateSavingBalance(savingId,newBalance);
+    }
+
+    @PatchMapping("/creditcard/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCreditCardBalance(@PathVariable(name = "id") Integer creditCardId, @RequestBody @Valid BigDecimal newBalance){
+        iCreditCardService.updateCreditCardBalance(creditCardId,newBalance);
+    }
+
+    @PatchMapping("/studentchecking/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateStudentCheckingBalance(@PathVariable(name = "id") Integer studentCheckingId, @RequestBody @Valid BigDecimal newBalance){
+        iStudentCheckingService.updateStudentCheckingBalance(studentCheckingId,newBalance);
     }
 }
