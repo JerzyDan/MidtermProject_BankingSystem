@@ -35,7 +35,7 @@ public class Savings extends Account{
     public Savings(Money balance, String primaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
         super(balance, primaryOwner);
         this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
+        setMinimumBalance(minimumBalance);
         this.creationDate = LocalDate.now();
         this.status = status;
         setInterestRate(interestRate);
@@ -45,10 +45,70 @@ public class Savings extends Account{
     public Savings(Money balance, String primaryOwner, String secondaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
+        setMinimumBalance(minimumBalance);
         this.creationDate = LocalDate.now();
         this.status = status;
         setInterestRate(interestRate);
+        this.interestDate = creationDate;
+    }
+
+    public Savings(Money balance, String primaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status) {
+        super(balance, primaryOwner);
+        this.secretKey = secretKey;
+        setMinimumBalance(minimumBalance);
+        this.creationDate = LocalDate.now();
+        this.status = status;
+        this.interestRate = new BigDecimal("0.0025");
+        this.interestDate = creationDate;
+    }
+
+    public Savings(Money balance, String primaryOwner, String secondaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status) {
+        super(balance, primaryOwner, secondaryOwner);
+        this.secretKey = secretKey;
+        setMinimumBalance(minimumBalance);
+        this.creationDate = LocalDate.now();
+        this.status = status;
+        this.interestRate = new BigDecimal("0.0025");
+        this.interestDate = creationDate;
+    }
+
+    public Savings(Money balance, String primaryOwner, String secretKey, AccountStatus status, BigDecimal interestRate) {
+        super(balance, primaryOwner);
+        this.secretKey = secretKey;
+        this.minimumBalance = new BigDecimal("1000");
+        this.creationDate = LocalDate.now();
+        this.status = status;
+        setInterestRate(interestRate);
+        this.interestDate = creationDate;
+    }
+
+    public Savings(Money balance, String primaryOwner, String secondaryOwner, String secretKey, AccountStatus status, BigDecimal interestRate) {
+        super(balance, primaryOwner, secondaryOwner);
+        this.secretKey = secretKey;
+        this.minimumBalance = new BigDecimal("1000");
+        this.creationDate = LocalDate.now();
+        this.status = status;
+        setInterestRate(interestRate);
+        this.interestDate = creationDate;
+    }
+
+    public Savings(Money balance, String primaryOwner, String secretKey, AccountStatus status) {
+        super(balance, primaryOwner);
+        this.secretKey = secretKey;
+        this.minimumBalance = new BigDecimal("1000");
+        this.creationDate = LocalDate.now();
+        this.status = status;
+        this.interestRate = new BigDecimal("0.0025");
+        this.interestDate = creationDate;
+    }
+
+    public Savings(Money balance, String primaryOwner, String secondaryOwner, String secretKey, AccountStatus status) {
+        super(balance, primaryOwner, secondaryOwner);
+        this.secretKey = secretKey;
+        this.minimumBalance = new BigDecimal("1000");
+        this.creationDate = LocalDate.now();
+        this.status = status;
+        this.interestRate = new BigDecimal("0.0025");
         this.interestDate = creationDate;
     }
 

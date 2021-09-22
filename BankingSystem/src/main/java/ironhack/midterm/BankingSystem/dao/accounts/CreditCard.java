@@ -31,15 +31,45 @@ public class CreditCard extends Account{
 
     public CreditCard(Money balance, String primaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(balance, primaryOwner);
-        this.creditLimit = creditLimit;
-        this.interestRate = interestRate;
+        setCreditLimit(creditLimit);
+        setInterestRate(interestRate);
         this.interestDate = LocalDate.now();
     }
 
     public CreditCard(Money balance, String primaryOwner, String secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(balance, primaryOwner, secondaryOwner);
-        this.creditLimit = creditLimit;
-        this.interestRate = interestRate;
+        setCreditLimit(creditLimit);
+        setInterestRate(interestRate);
+        this.interestDate = LocalDate.now();
+    }
+
+    public CreditCard(Money balance, String primaryOwner, BigDecimal interestRate) {
+        super(balance, primaryOwner);
+        this.creditLimit = new BigDecimal("100");
+        setInterestRate(interestRate);
+        this.interestDate = LocalDate.now();
+    }
+
+    public CreditCard(Money balance, String primaryOwner, String secondaryOwner, BigDecimal interestRate) {
+        super(balance, primaryOwner, secondaryOwner);
+        this.creditLimit = new BigDecimal("100");
+        setInterestRate(interestRate);
+        this.interestDate = LocalDate.now();
+    }
+
+//TODO default value for interestRate
+
+    public CreditCard(Money balance, String primaryOwner) {
+        super(balance, primaryOwner);
+        this.creditLimit = new BigDecimal("100");
+        this.interestRate = new BigDecimal("0.2");
+        this.interestDate = LocalDate.now();
+    }
+
+    public CreditCard(Money balance, String primaryOwner, String secondaryOwner) {
+        super(balance, primaryOwner, secondaryOwner);
+        this.creditLimit = new BigDecimal("100");
+        this.interestRate = new BigDecimal("0.2");
         this.interestDate = LocalDate.now();
     }
 
