@@ -31,6 +31,7 @@ public class Savings extends Account{
     private AccountStatus status;
     private BigDecimal interestRate;
     private LocalDate interestDate;
+    private boolean deductFlag = true;
 
     public Savings(Money balance, String primaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
         super(balance, primaryOwner);
@@ -181,17 +182,50 @@ public class Savings extends Account{
             account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()),account.getBalance().getCurrency()));
     }
 
-    public Money getBalance(){
+    public Money getBalance(Checking account){
         BigDecimal newBalance;
         LocalDate now = LocalDate.now();
         int diff = Math.abs(Days.daysBetween(now,interestDate).getDays());
-        if (diff<365)
-            return this.getBalance();
-        else
-            newBalance = getBalance().getAmount().add(getBalance().getAmount().multiply(getInterestRate()));
-            setBalance(new Money(newBalance,getBalance().getCurrency()));
-            interestDate = LocalDate.now();
-            return this.getBalance();
 
+        if (diff<365) {
+            if (account.getBalance().getAmount().compareTo(account.getMinimumBalance()) < 0) {
+
+                if (isDeductFlag()) {
+                    account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()), account.getBalance().getCurrency()));
+                    setDeductFlag(false);
+                }
+                else{
+                    setDeductFlag(true);
+                }
+            }
+
+        else {
+                newBalance = getBalance().getAmount().add(getBalance().getAmount().multiply(getInterestRate()));
+                setBalance(new Money(newBalance,getBalance().getCurrency()));
+                interestDate = LocalDate.now();
+
+                if (account.getBalance().getAmount().compareTo(account.getMinimumBalance()) < 0) {
+
+                    if (isDeductFlag()) {
+                        account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()), account.getBalance().getCurrency()));
+                        setDeductFlag(false);
+                    }
+                }
+                else{
+                    setDeductFlag(true);
+                }
+            }
+        }
+        return getBalance();
+
+    }
+
+
+    public boolean isDeductFlag() {
+        return deductFlag;
+    }
+
+    public void setDeductFlag(boolean deductFlag) {
+        this.deductFlag = deductFlag;
     }
 }

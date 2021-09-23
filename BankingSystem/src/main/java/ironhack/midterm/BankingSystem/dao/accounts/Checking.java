@@ -29,6 +29,7 @@ public class Checking extends Account {
     private static final BigDecimal monthlyMaintenanceFee = new BigDecimal("12");
     private LocalDate creationDate;
     private AccountStatus status;
+    private boolean deductFlag = true; //the penalty can be deducted from the amount
 
 
     public Checking(Money balance, String primaryOwner, String secretKey, AccountStatus status) {
@@ -91,8 +92,32 @@ public class Checking extends Account {
         this.status = status;
     }
 
-    private void deductFromAccount(Checking account){
+    public boolean isDeductFlag() {
+        return deductFlag;
+    }
+
+    public void setDeductFlag(boolean deductFlag) {
+        this.deductFlag = deductFlag;
+    }
+
+/*    private void deductFromAccount(Checking account){
+
         if (account.getBalance().getAmount().compareTo(account.getMinimumBalance())<0)
             account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()),account.getBalance().getCurrency()));
+    }*/
+
+    public Money getBalance(Checking account) {
+
+        if (account.getBalance().getAmount().compareTo(account.getMinimumBalance()) < 0) {
+
+            if (isDeductFlag()) {
+                account.setBalance(new Money(account.getBalance().getAmount().subtract(account.getPenaltyFee()), account.getBalance().getCurrency()));
+                setDeductFlag(false);
+            }
+        }
+        else{
+            setDeductFlag(true);
+        }
+        return getBalance();
     }
 }

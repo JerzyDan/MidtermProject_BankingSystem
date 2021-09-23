@@ -14,4 +14,9 @@ public class AccountHolderController implements IAccountHolderController {
 
     @Autowired
     CheckingRepository checkingRepository;
+
+    //access their own account balance
+
+    //transfer money from any of their accounts to any other account
+
 }
