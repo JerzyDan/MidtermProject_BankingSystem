@@ -120,4 +120,9 @@ public class Checking extends Account {
         }
         return getBalance();
     }
+
+    public StudentChecking parseCheckingToStudentChecking(Checking checking){
+        StudentChecking studentChecking = new StudentChecking(checking.getBalance(),checking.getPrimaryOwner(), checking.getSecondaryOwner(), checking.getSecretKey(), checking.getStatus());
+        return studentChecking;
+    }
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.LocalDate;
 
 import javax.persistence.*;
 
@@ -19,24 +20,38 @@ public class AccountHolder {
     private Integer id;
 
     private String name;
-    private String dateOfBirth;
+    private String surname;
+    private String passportNumber;
+    private LocalDate dateOfBirth;
 
     @Embedded
     private Address address;
 
     private String mailingAddress;
 
-    public AccountHolder(String name, String dateOfBirth, Address address, String mailingAddress) {
+    public AccountHolder(String name, String surname, String passportNumber, LocalDate dateOfBirth, Address address, String mailingAddress) {
         this.name = name;
+        this.surname = surname;
+        this.passportNumber = passportNumber;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.mailingAddress = mailingAddress;
     }
 
-    public AccountHolder(String name, String dateOfBirth, Address address) {
+    public AccountHolder(String name, String surname, String passportNumber, LocalDate dateOfBirth, Address address) {
         this.name = name;
+        this.surname = surname;
+        this.passportNumber = passportNumber;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,11 +62,27 @@ public class AccountHolder {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,20 +24,18 @@ public class StudentChecking extends Account{
     private Integer id;
 
     private String secretKey;
-    private String creationDate;
+    private LocalDate creationDate = LocalDate.now();
     private AccountStatus status;
 
-    public StudentChecking(Money balance, String primaryOwner, String secretKey, String creationDate, AccountStatus status) {
+    public StudentChecking(Money balance, String primaryOwner, String secretKey, AccountStatus status) {
         super(balance, primaryOwner);
         this.secretKey = secretKey;
-        this.creationDate = creationDate;
         this.status = status;
     }
 
-    public StudentChecking(Money balance, String primaryOwner, String secondaryOwner, String secretKey, String creationDate, AccountStatus status) {
+    public StudentChecking(Money balance, String primaryOwner, String secondaryOwner, String secretKey, AccountStatus status) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
-        this.creationDate = creationDate;
         this.status = status;
     }
 
@@ -48,11 +47,11 @@ public class StudentChecking extends Account{
         this.secretKey = secretKey;
     }
 
-    public String getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 

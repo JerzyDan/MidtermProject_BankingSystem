@@ -5,6 +5,7 @@ import ironhack.midterm.BankingSystem.dao.accounts.Checking;
 import ironhack.midterm.BankingSystem.dao.accounts.CreditCard;
 import ironhack.midterm.BankingSystem.dao.accounts.Savings;
 import ironhack.midterm.BankingSystem.dao.accounts.StudentChecking;
+import ironhack.midterm.BankingSystem.dao.users.AccountHolder;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.CheckingRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.CreditCardRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.SavingsRepository;
@@ -14,6 +15,8 @@ import ironhack.midterm.BankingSystem.service.interfaces.ICheckingService;
 import ironhack.midterm.BankingSystem.service.interfaces.ICreditCardService;
 import ironhack.midterm.BankingSystem.service.interfaces.ISavingService;
 import ironhack.midterm.BankingSystem.service.interfaces.IStudentCheckingService;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +54,24 @@ public class AdminController implements IAdminController {
     //creating accounts
     @PostMapping("/checking")
     @ResponseStatus(HttpStatus.CREATED)
-    public Checking checkingStored (@RequestBody @Valid Checking checking){
-        return checkingRepository.save(checking);
+    public void checkingStored (@RequestBody @Valid Checking checking, @Valid AccountHolder accountHolder){
+        if (Math.abs(Days.daysBetween(LocalDate.now(),accountHolder.getDateOfBirth()).getDays())>=24) {
+            checkingRepository.save(checking);
+        }
+        else {
+            studentCheckingRepository.save(checking.parseCheckingToStudentChecking(checking));
+        }
+    }
+
+    @PostMapping("/studentAccount")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void studentCheckingStored(@RequestBody @Valid StudentChecking studentChecking, @Valid AccountHolder accountHolder){
+        if (Math.abs(Days.daysBetween(LocalDate.now(),accountHolder.getDateOfBirth()).getDays())<24){
+            studentCheckingRepository.save(studentChecking);
+        }
+        else {
+            System.out.println("Client is 24 years old or older. Please create regular 'Checking Account'.");
+        }
     }
 
     @PostMapping("/savings")
