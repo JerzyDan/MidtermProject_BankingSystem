@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class StudentChecking extends Account{
     private String secretKey;
     private LocalDate creationDate = LocalDate.now();
     private AccountStatus status;
+    private LocalTime lastTransactionTime = LocalTime.now();
 
     public StudentChecking(Money balance, String primaryOwner, String secretKey, AccountStatus status) {
         super(balance, primaryOwner);
@@ -61,5 +63,13 @@ public class StudentChecking extends Account{
 
     public void setStatus(AccountStatus status) {
         this.status = status;
+    }
+
+    public LocalTime getLastTransactionTime() {
+        return lastTransactionTime;
+    }
+
+    public void setLastTransactionTime(LocalTime lastTransactionTime) {
+        this.lastTransactionTime = lastTransactionTime;
     }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class Savings extends Account{
     private BigDecimal interestRate;
     private LocalDate interestDate;
     private boolean deductFlag = true;
+    private LocalTime lastTransactionTime = LocalTime.now();
 
     public Savings(Money balance, String primaryOwner, String secretKey, BigDecimal minimumBalance, AccountStatus status, BigDecimal interestRate) {
         super(balance, primaryOwner);
@@ -227,5 +229,13 @@ public class Savings extends Account{
 
     public void setDeductFlag(boolean deductFlag) {
         this.deductFlag = deductFlag;
+    }
+
+    public LocalTime getLastTransactionTime() {
+        return lastTransactionTime;
+    }
+
+    public void setLastTransactionTime(LocalTime lastTransactionTime) {
+        this.lastTransactionTime = lastTransactionTime;
     }
 }

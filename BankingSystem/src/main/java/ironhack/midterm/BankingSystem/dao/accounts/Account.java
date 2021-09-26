@@ -3,6 +3,8 @@ package ironhack.midterm.BankingSystem.dao.accounts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -65,7 +67,7 @@ public class Account {
         return penaltyFee;
     }
 
-/*    public void setPenaltyFee(BigDecimal penaltyFee) {
+    /*    public void setPenaltyFee(BigDecimal penaltyFee) {
         this.penaltyFee = penaltyFee;
     }*/
 }

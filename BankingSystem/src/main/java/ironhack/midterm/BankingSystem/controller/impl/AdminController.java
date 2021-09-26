@@ -6,11 +6,13 @@ import ironhack.midterm.BankingSystem.dao.accounts.CreditCard;
 import ironhack.midterm.BankingSystem.dao.accounts.Savings;
 import ironhack.midterm.BankingSystem.dao.accounts.StudentChecking;
 import ironhack.midterm.BankingSystem.dao.users.AccountHolder;
+import ironhack.midterm.BankingSystem.dao.users.ThirdParty;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.CheckingRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.CreditCardRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.SavingsRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.StudentCheckingRepository;
 import ironhack.midterm.BankingSystem.repository.usersRepository.AdminRepository;
+import ironhack.midterm.BankingSystem.repository.usersRepository.ThirdPartyRepository;
 import ironhack.midterm.BankingSystem.service.interfaces.ICheckingService;
 import ironhack.midterm.BankingSystem.service.interfaces.ICreditCardService;
 import ironhack.midterm.BankingSystem.service.interfaces.ISavingService;
@@ -30,6 +32,9 @@ public class AdminController implements IAdminController {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private ThirdPartyRepository thirdPartyRepository;
 
     @Autowired
     private CheckingRepository checkingRepository;
@@ -136,4 +141,12 @@ public class AdminController implements IAdminController {
     public void updateStudentCheckingBalance(@PathVariable(name = "id") Integer studentCheckingId, @RequestBody @Valid BigDecimal newBalance){
         iStudentCheckingService.updateStudentCheckingBalance(studentCheckingId,newBalance);
     }
+
+    //create ThirdPartyAccount
+    @PostMapping("/createThirdParty")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ThirdParty storeThirdParty(@RequestBody @Valid ThirdParty thirdParty){
+        return thirdPartyRepository.save(thirdParty);
+    }
+
 }

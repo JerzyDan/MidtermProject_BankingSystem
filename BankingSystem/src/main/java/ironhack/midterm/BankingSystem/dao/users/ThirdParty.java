@@ -22,17 +22,31 @@ public class ThirdParty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private HashMap<String,String> thirdParty;
+    private String hashedKey;
+    private String name;
 
-    public ThirdParty(HashMap<String, String> thirdParty) {
-        this.thirdParty = thirdParty;
+    public ThirdParty(String hashedKey, String name) {
+        this.hashedKey = hashedKey;
+        this.name = name;
     }
 
-    public HashMap<String, String> getThirdParty() {
-        return thirdParty;
+    public String getHashedKey() {
+        return hashedKey;
     }
 
-    public void setThirdParty(HashMap<String, String> thirdParty) {
-        this.thirdParty = thirdParty;
+    public void setHashedKey(String hashedKey) {
+        this.hashedKey = hashedKey;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,7 @@ public class Checking extends Account {
     private LocalDate creationDate;
     private AccountStatus status;
     private boolean deductFlag = true; //the penalty can be deducted from the amount
+    private LocalTime lastTransactionTime = LocalTime.now();
 
 
     public Checking(Money balance, String primaryOwner, String secretKey, AccountStatus status) {
@@ -119,6 +121,14 @@ public class Checking extends Account {
             setDeductFlag(true);
         }
         return getBalance();
+    }
+
+    public LocalTime getLastTransactionTime() {
+        return lastTransactionTime;
+    }
+
+    public void setLastTransactionTime(LocalTime lastTransactionTime) {
+        this.lastTransactionTime = lastTransactionTime;
     }
 
     public StudentChecking parseCheckingToStudentChecking(Checking checking){
