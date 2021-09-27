@@ -19,7 +19,7 @@ public class CreditCardService implements ICreditCardService {
     public void updateCreditCardBalance(Integer id, BigDecimal newBalance){
         Optional<CreditCard> storedCreditCard = creditCardRepository.findById(id);
         if (storedCreditCard.isPresent()){
-            storedCreditCard.get().setBalance(new Money(newBalance,storedCreditCard.get().getBalance().getCurrency()));
+            storedCreditCard.get().setBalance(new Money(newBalance,storedCreditCard.get().getCreditCardBalance().getCurrency()));
             creditCardRepository.save(storedCreditCard.get());
         }
     }

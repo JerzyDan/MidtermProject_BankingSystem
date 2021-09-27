@@ -95,19 +95,18 @@ public class CreditCard extends Account{
             this.interestRate = new BigDecimal("0.2");
     }
 
-    public Money getBalance(){
+    public Money getCreditCardBalance(){
         BigDecimal newBalance;
         LocalDate now = LocalDate.now();
         MathContext mc = new MathContext(2);
-        BigDecimal divisor = new BigDecimal("12");
+        BigDecimal divisor = BigDecimal.valueOf(12);
         int diff = Math.abs(Days.daysBetween(now,interestDate).getDays());
-        if (diff<31)
-            return this.getBalance();
-        else
+        if (diff >= 31) {
             newBalance = getBalance().getAmount().add(getBalance().getAmount().multiply(getInterestRate().divide(divisor, mc)));
-        setBalance(new Money(newBalance,getBalance().getCurrency()));
-        interestDate = LocalDate.now();
-        return this.getBalance();
+            setBalance(new Money(newBalance, getBalance().getCurrency()));
+            interestDate = LocalDate.now();
+        }
+        return getBalance();
     }
 
 

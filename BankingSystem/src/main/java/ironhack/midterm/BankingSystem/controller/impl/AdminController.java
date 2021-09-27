@@ -56,10 +56,10 @@ public class AdminController implements IAdminController {
     @Autowired
     private IStudentCheckingService iStudentCheckingService;
 
-    //creating accounts
+    //creating ironhack.midterm.BankingSystem.dao.accounts
     @PostMapping("/checking")
     @ResponseStatus(HttpStatus.CREATED)
-    public void checkingStored (@RequestBody @Valid Checking checking, @Valid AccountHolder accountHolder){
+    public void checkingStored (@RequestBody @Valid Checking checking, @RequestBody @Valid AccountHolder accountHolder){
         if (Math.abs(Days.daysBetween(LocalDate.now(),accountHolder.getDateOfBirth()).getDays())>=24) {
             checkingRepository.save(checking);
         }

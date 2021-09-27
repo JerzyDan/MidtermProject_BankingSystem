@@ -8,3 +8,4 @@ show tables;
 select * from account;
 select * from account_holder;
 select * from third_party;
+select * from admin;

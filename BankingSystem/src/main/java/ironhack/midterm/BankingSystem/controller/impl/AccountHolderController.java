@@ -64,7 +64,7 @@ public class AccountHolderController implements IAccountHolderController {
         return optionalStudentChecking.map(Account::getBalance).orElse(null);
     }
 
-    //transfer money from any of their accounts to any other account
+    //transfer money from any of their ironhack.midterm.BankingSystem.dao.accounts to any other account
 
     @GetMapping("/transferFromChecking")
     @ResponseStatus(HttpStatus.OK)
@@ -106,14 +106,14 @@ public class AccountHolderController implements IAccountHolderController {
 
         if (accountToTransfer.isPresent()&&(accountToTransfer.get().getPrimaryOwner().equals(owner) || accountToTransfer.get().getSecondaryOwner().equals(owner))){
 
-            if (account.getBalance().getAmount().compareTo(balance)<0){
+            if (account.getCreditCardBalance().getAmount().compareTo(balance)<0){
                 System.out.println("Insufficient funds on account.");
             }
-            else if (!Objects.equals(account.getBalance().getCurrency(), accountToTransfer.get().getBalance().getCurrency())){
+            else if (!Objects.equals(account.getCreditCardBalance().getCurrency(), accountToTransfer.get().getBalance().getCurrency())){
                 System.out.println("Accounts have different currencies.");
             }
             else {
-                account.setBalance(new Money(account.getBalance().getAmount().subtract(balance),account.getBalance().getCurrency()));
+                account.setBalance(new Money(account.getCreditCardBalance().getAmount().subtract(balance),account.getCreditCardBalance().getCurrency()));
                 accountToTransfer.get().setBalance(new Money(accountToTransfer.get().getBalance().getAmount().add(balance),accountToTransfer.get().getBalance().getCurrency()));
             }
         }
