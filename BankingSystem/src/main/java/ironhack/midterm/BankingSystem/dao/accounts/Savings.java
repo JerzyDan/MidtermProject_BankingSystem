@@ -115,24 +115,6 @@ public class Savings extends Account{
         this.interestDate = creationDate;
     }
 
-/*    public Savings(BigDecimal balance, String primaryOwner, BigDecimal penaltyFee, String secretKey, BigDecimal minimumBalance, String creationDate, AccountStatus status) {
-        super(balance, primaryOwner, penaltyFee);
-        this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
-        this.creationDate = creationDate;
-        this.status = status;
-        setInterestRate(new BigDecimal("0.025"));
-    }
-
-    public Savings(BigDecimal balance, String primaryOwner, String secondaryOwner, BigDecimal penaltyFee, String secretKey, BigDecimal minimumBalance, String creationDate, AccountStatus status) {
-        super(balance, primaryOwner, secondaryOwner, penaltyFee);
-        this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
-        this.creationDate = creationDate;
-        this.status = status;
-        setInterestRate(new BigDecimal("0.025"));
-    }*/
-
     public String getSecretKey() {
         return secretKey;
     }
@@ -155,10 +137,6 @@ public class Savings extends Account{
     public LocalDate getCreationDate() {
         return creationDate;
     }
-
-/*    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }*/
 
     public AccountStatus getStatus() {
         return status;

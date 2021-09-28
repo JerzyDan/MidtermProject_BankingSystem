@@ -2,17 +2,8 @@ package ironhack.midterm.BankingSystem.dao.users;
 
 import javax.persistence.Embeddable;
 
-/*@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
-@Entity*/
 @Embeddable
 public class Address {
-
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;*/
 
     private String country;
     private String city;

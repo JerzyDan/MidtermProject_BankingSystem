@@ -57,8 +57,6 @@ public class CreditCard extends Account{
         this.interestDate = LocalDate.now();
     }
 
-//TODO default value for interestRate
-
     public CreditCard(Money balance, String primaryOwner) {
         super(balance, primaryOwner);
         this.creditLimit = new BigDecimal("100");

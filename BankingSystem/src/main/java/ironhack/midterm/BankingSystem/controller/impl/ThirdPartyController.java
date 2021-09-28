@@ -1,12 +1,13 @@
 package ironhack.midterm.BankingSystem.controller.impl;
 
 import ironhack.midterm.BankingSystem.controller.interfaces.IThirdPartyController;
-import ironhack.midterm.BankingSystem.dao.accounts.*;
-import ironhack.midterm.BankingSystem.repository.accountsRepository.AccountRepository;
+import ironhack.midterm.BankingSystem.dao.accounts.Checking;
+import ironhack.midterm.BankingSystem.dao.accounts.Money;
+import ironhack.midterm.BankingSystem.dao.accounts.Savings;
+import ironhack.midterm.BankingSystem.dao.accounts.StudentChecking;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.CheckingRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.SavingsRepository;
 import ironhack.midterm.BankingSystem.repository.accountsRepository.StudentCheckingRepository;
-import ironhack.midterm.BankingSystem.repository.usersRepository.ThirdPartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,6 @@ import java.util.Optional;
 
 public class ThirdPartyController implements IThirdPartyController {
 
-    @Autowired
-    ThirdPartyRepository thirdPartyRepository;
     @Autowired
     CheckingRepository checkingRepository;
     @Autowired

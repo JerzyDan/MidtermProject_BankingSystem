@@ -56,7 +56,6 @@ public class AdminController implements IAdminController {
     @Autowired
     private IStudentCheckingService iStudentCheckingService;
 
-    //creating ironhack.midterm.BankingSystem.dao.accounts
     @PostMapping("/checking")
     @ResponseStatus(HttpStatus.CREATED)
     public void checkingStored (@RequestBody @Valid Checking checking, @RequestBody @Valid AccountHolder accountHolder){
@@ -95,14 +94,14 @@ public class AdminController implements IAdminController {
     @ResponseStatus(HttpStatus.OK)
     public Checking getCheckingById(@PathVariable(name = "id")Integer checkingId){
         Optional<Checking> optionalChecking = checkingRepository.findById(checkingId);
-        return optionalChecking.isPresent() ? optionalChecking.get() : null;
+        return optionalChecking.orElse(null);
     }
 
     @GetMapping("/savings/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Savings getSavingById(@PathVariable(name = "id") Integer savingId){
         Optional<Savings> optionalSavings = savingsRepository.findById(savingId);
-        return optionalSavings.isPresent() ? optionalSavings.get() : null;
+        return optionalSavings.orElse(null);
     }
 
     @GetMapping("/creditcard/{id}")
@@ -142,7 +141,6 @@ public class AdminController implements IAdminController {
         iStudentCheckingService.updateStudentCheckingBalance(studentCheckingId,newBalance);
     }
 
-    //create ThirdPartyAccount
     @PostMapping("/createThirdParty")
     @ResponseStatus(HttpStatus.CREATED)
     public ThirdParty storeThirdParty(@RequestBody @Valid ThirdParty thirdParty){

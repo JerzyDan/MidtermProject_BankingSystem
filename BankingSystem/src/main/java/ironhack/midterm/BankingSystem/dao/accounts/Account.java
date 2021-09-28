@@ -3,8 +3,6 @@ package ironhack.midterm.BankingSystem.dao.accounts;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,7 +19,6 @@ public class Account {
 
     @Embedded
     private Money balance;
-    //private BigDecimal balance;
     private String primaryOwner;
     private String secondaryOwner;
     private static final BigDecimal penaltyFee = new BigDecimal("40");
@@ -29,14 +26,12 @@ public class Account {
     public Account(Money balance, String primaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
-        //this.penaltyFee = penaltyFee;
     }
 
     public Account(Money balance, String primaryOwner, String secondaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
-        //this.penaltyFee = penaltyFee;
     }
 
     public Money getBalance() {
@@ -67,7 +62,4 @@ public class Account {
         return penaltyFee;
     }
 
-    /*    public void setPenaltyFee(BigDecimal penaltyFee) {
-        this.penaltyFee = penaltyFee;
-    }*/
 }

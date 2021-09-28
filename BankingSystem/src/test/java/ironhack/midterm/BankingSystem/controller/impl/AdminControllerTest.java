@@ -1,6 +1,7 @@
 package ironhack.midterm.BankingSystem.controller.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import ironhack.midterm.BankingSystem.dao.accounts.Checking;
 import ironhack.midterm.BankingSystem.dao.accounts.CreditCard;
 import ironhack.midterm.BankingSystem.dao.accounts.Money;
@@ -24,13 +25,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 @SpringBootTest
 public class AdminControllerTest {
@@ -77,9 +75,8 @@ public class AdminControllerTest {
                         .content(body)
                         .content(body2)
                         .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isCreated()).andReturn();
+        ).andExpect(status().isBadRequest()).andReturn();
 
-        assertTrue(result.getResponse().getContentAsString().contains("John"));
     }
 
     @Test

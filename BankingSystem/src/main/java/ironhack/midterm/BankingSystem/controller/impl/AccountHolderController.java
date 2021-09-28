@@ -35,7 +35,6 @@ public class AccountHolderController implements IAccountHolderController {
     @Autowired
     AccountRepository accountRepository;
 
-    //access their own account balance
     @GetMapping("/getCheckingBalance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Money getCheckingBalanceById(@PathVariable(name = "id")Integer id){
@@ -63,8 +62,6 @@ public class AccountHolderController implements IAccountHolderController {
         Optional<StudentChecking> optionalStudentChecking = studentCheckingRepository.findById(id);
         return optionalStudentChecking.map(Account::getBalance).orElse(null);
     }
-
-    //transfer money from any of their ironhack.midterm.BankingSystem.dao.accounts to any other account
 
     @GetMapping("/transferFromChecking")
     @ResponseStatus(HttpStatus.OK)
